@@ -31,7 +31,16 @@ public class CrazyDigitalPainting {
 				int rR = rand.nextInt(256);
 				int rG = rand.nextInt(256);
 				int rB = rand.nextInt(256);
-				colors[i][j] = new Color(rR, rG, rB);
+				int rRGB = rand.nextInt(3);
+				if(rRGB == 0) {
+					colors[i][j] = new Color(rR, 0, 0);
+				}
+				else if(rRGB == 1) {
+					colors[i][j] = new Color(0, rG, 0);
+				}
+				else {
+					colors[i][j] = new Color(0, 0, rB);
+				}
 			}
 		}
 		// 6. Use the ColorArrayDisplayer class to call the displayColorsAsImage method
