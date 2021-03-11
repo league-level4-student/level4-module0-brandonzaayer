@@ -47,73 +47,137 @@ import java.util.HashMap;
 public class TheWrongWayCow {
 
 	public static int[] findWrongWayCow(final char[][] field) {
-        // Fill in the code to return the x,y coordinate position of the
-        // head (letter 'c') of the wrong way cow!
-        int numOfN = 0;
-        int numOfE = 0;
-        int numOfS = 0;
-        int numOfW = 0;
-        HashMap<String, String> cattle = new HashMap<>();
-        for(int i = 0; i < field.length; i++) {
-    		for (int j = 0; j < field[i].length; j++) {
-    			//checks corners
-    			if(field[0][0] == 'c') {
-    				if(field[1][0] == 'o') {
-    					numOfE++;
-    					cattle.put("East", "0, 0");
-    				}
-    				if(field[0][1] == 'o') {
-    					numOfS++;
-    					cattle.put("South", "0, 0");
-    				}
-    			}
-    			if(field[field.length-1][0] == 'c') {
-    				if(field[field.length-2][0] == 'o') {
-    					numOfW++;
-    					cattle.put("West", "0, " + field[field.length-1][0] + "");
-    				}
-    				if(field[field.length-1][1] == 'o') {
-    					numOfS++;
-    					cattle.put("South", "0, " + field[field.length-1][0] + "");
-    				}
-    			if(field[0][field.length-1] == 'c') {
-        			if(field[0][field.length-2] == 'o') {
-        				numOfN++;
-        				cattle.put("North", "0, " + field[0][field.length-1] + "");
-        			}
-       				if(field[1][field.length-1] == 'o') {
-       					numOfE++;
-       					cattle.put("East", "0, " + field[0][field.length-1] + "");
-       				}
-    			}
-    			if(field[field.length-1][field.length-1] == 'c') {
-        			if(field[field.length-2][field.length-1] == 'o') {
-        				numOfW++;
-        				cattle.put("West", "0, " + field[0][field.length-1] + "");
-        			}
-       				if(field[field.length-1][field.length-2] == 'o') {
-       					numOfN++;
-       					cattle.put("North", "0, " + field[1][field.length-1] + "");
-       				}
-    			}
-        		/*if (x != 0) {
-        			if (cells[x - 1][y].isAlive)
-        				livingNeighbors++;
-        		}
-
-        		if (x != cellsPerRow - 1) {
-        			if (cells[x + 1][y].isAlive)
-        				livingNeighbors++;
-        		}
-        		if (y != 0) {
-        			if (cells[x][y - 1].isAlive)
-        				livingNeighbors++;
-        		}
-        		if (y != cellsPerRow - 1) {
-        			if (cells[x][y + 1].isAlive)
-        				livingNeighbors++;
-        		}*/
-        }
-        return null;
-    }
+		// Fill in the code to return the x,y coordinate position of the
+		// head (letter 'c') of the wrong way cow!
+		HashMap<String, String> cattle = new HashMap<>();
+		int numOfN = 0;
+		int numOfE = 0;
+		int numOfS = 0;
+		int numOfW = 0;
+		for (int i = 0; i < field.length; i++) {
+			for (int j = 0; j < field[i].length; j++) {
+				// checks corners
+				int location = field.length - 1;
+				if (field[0][0] == 'c') {
+					if (field[1][0] == 'o') {
+						numOfE++;
+						cattle.put("East", "0, 0");
+					}
+					if (field[0][1] == 'o') {
+						numOfS++;
+						cattle.put("South", "0, 0");
+					}
+				}
+				if (field[field.length - 1][0] == 'c') {
+					if (field[field.length - 2][0] == 'o') {
+						numOfW++;
+						cattle.put("West", "" + location + ", 0");
+					}
+					if (field[field.length - 1][1] == 'o') {
+						numOfS++;
+						cattle.put("South", "" + location + ", 0");
+					}
+				}
+				if (field[0][field.length - 1] == 'c') {
+					if (field[0][field.length - 2] == 'o') {
+						numOfN++;
+						cattle.put("North", "0, " + location + "");
+					}
+					if (field[1][field.length - 1] == 'o') {
+						numOfE++;
+						cattle.put("East", "0, " + location + "");
+					}
+				}
+				if (field[field.length - 1][field.length - 1] == 'c') {
+					if (field[field.length - 2][field.length - 1] == 'o') {
+						numOfW++;
+						cattle.put("West", "" + location + ", " + location);
+					}
+					if (field[field.length - 1][field.length - 2] == 'o') {
+						numOfN++;
+						cattle.put("North", "" + location + ", " + location);
+					}
+				}
+				// checks edges
+				else if (i == 0) {
+					if (field[0][j - 1] == 'o') {
+						numOfW++;
+						cattle.put("West", "0, " + j);
+					}
+					if (field[0][j + 1] == 'o') {
+						numOfE++;
+						cattle.put("East", "0, " + j);
+					}
+					if (field[1][j] == 'o') {
+						numOfS++;
+						cattle.put("South", "0, " + j);
+					}
+				} else if (i == field.length - 1) {
+					if (field[i][j - 1] == 'o') {
+						numOfW++;
+						cattle.put("West", i + ", " + j);
+					}
+					if (field[i][j + 1] == 'o') {
+						numOfE++;
+						cattle.put("East", i + ", " + j);
+					}
+					if (field[i - 1][j] == 'o') {
+						numOfS++;
+						cattle.put("South", i + ", " + j);
+					}
+				} else if (j == 0) {
+					if (field[i - 1][0] == 'o') {
+						numOfN++;
+						cattle.put("North", i + ", 0");
+					}
+					if (field[i + 1][0] == 'o') {
+						numOfS++;
+						cattle.put("South", i + ", 0");
+					}
+					if (field[i][1] == 'o') {
+						numOfE++;
+						cattle.put("East", i + ", 0");
+					}
+				} else if (j == field.length - 1) {
+					if (field[i - 1][j] == 'o') {
+						numOfN++;
+						cattle.put("North", i + ", " + j);
+					}
+					if (field[i + 1][j] == 'o') {
+						numOfS++;
+						cattle.put("South", i + ", " + j);
+					}
+					if (field[i][j - 1] == 'o') {
+						numOfW++;
+						cattle.put("West", i + ", " + j);
+					}
+				}
+				// checks the rest
+				else if (field[i][j] == 'c') {
+					if (field[i - 1][j] == 'o') {
+						numOfN++;
+						cattle.put("North", i + ", " + j);
+					}
+					if (field[i][j + 1] == 'o') {
+						numOfE++;
+						cattle.put("East", i + ", " + j);
+					}
+					if (field[i + 1][j] == 'o') {
+						numOfS++;
+						cattle.put("South", i + ", " + j);
+					}
+					if (field[i][j - 1] == 'o') {
+						numOfW++;
+						cattle.put("West", i + ", " + j);
+					}
+				}
+			}
+		}
+		if(numOfN == 1) {
+			char cords = cattle.get("North").charAt(0);
+			
+			int xCords = Integer.parseInt(cords);
+		}
+		return null;
+	}
 }
