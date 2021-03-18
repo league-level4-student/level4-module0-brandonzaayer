@@ -41,7 +41,6 @@
 
 package extras.the_wrong_way_cow;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TheWrongWayCow {
@@ -54,65 +53,65 @@ public class TheWrongWayCow {
 		int numOfE = 0;
 		int numOfS = 0;
 		int numOfW = 0;
+		// checks corners
+		int location = field.length - 1;
+		if (field[0][0] == 'c') {
+			if (field[1][0] == 'o') {
+				numOfS++;
+				cattle.put("South", "0, 0");
+			}
+			if (field[0][1] == 'o') {
+				numOfE++;
+				cattle.put("East", "0, 0");
+			}
+		}
+		if (field[field.length - 1][0] == 'c') {
+			if (field[field.length - 2][0] == 'o') {
+				numOfW++;
+				cattle.put("West", "" + location + ", 0");
+			}
+			if (field[field.length - 1][1] == 'o') {
+				numOfS++;
+				cattle.put("South", "" + location + ", 0");
+			}
+		}
+		if (field[0][field.length - 1] == 'c') {
+			if (field[0][field.length - 2] == 'o') {
+				numOfN++;
+				cattle.put("North", "0, " + location + "");
+			}
+			if (field[1][field.length - 1] == 'o') {
+				numOfE++;
+				cattle.put("East", "0, " + location + "");
+			}
+		}
+		if (field[field.length - 1][field.length - 1] == 'c') {
+			if (field[field.length - 2][field.length - 1] == 'o') {
+				numOfW++;
+				cattle.put("West", "" + location + ", " + location);
+			}
+			if (field[field.length - 1][field.length - 2] == 'o') {
+				numOfN++;
+				cattle.put("North", "" + location + ", " + location);
+			}
+		}
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
-				// checks corners
-				int location = field.length - 1;
-				if (field[0][0] == 'c') {
-					if (field[1][0] == 'o') {
-						numOfE++;
-						cattle.put("East", "0, 0");
-					}
-					if (field[0][1] == 'o') {
-						numOfS++;
-						cattle.put("South", "0, 0");
-					}
-				}
-				if (field[field.length - 1][0] == 'c') {
-					if (field[field.length - 2][0] == 'o') {
-						numOfW++;
-						cattle.put("West", "" + location + ", 0");
-					}
-					if (field[field.length - 1][1] == 'o') {
-						numOfS++;
-						cattle.put("South", "" + location + ", 0");
-					}
-				}
-				if (field[0][field.length - 1] == 'c') {
-					if (field[0][field.length - 2] == 'o') {
-						numOfN++;
-						cattle.put("North", "0, " + location + "");
-					}
-					if (field[1][field.length - 1] == 'o') {
-						numOfE++;
-						cattle.put("East", "0, " + location + "");
-					}
-				}
-				if (field[field.length - 1][field.length - 1] == 'c') {
-					if (field[field.length - 2][field.length - 1] == 'o') {
-						numOfW++;
-						cattle.put("West", "" + location + ", " + location);
-					}
-					if (field[field.length - 1][field.length - 2] == 'o') {
-						numOfN++;
-						cattle.put("North", "" + location + ", " + location);
-					}
-				}
 				// checks edges
-				else if (i == 0) {
-					if (field[0][j - 1] == 'o') {
+				if (i == 0 && field[i][j] == 'c') {
+					if (j > 0 && field[0][j - 1] == 'o') {
 						numOfW++;
 						cattle.put("West", "0, " + j);
 					}
-					if (field[0][j + 1] == 'o') {
+					if (j < field.length-1 && field[0][j + 1] == 'o') {
 						numOfE++;
 						cattle.put("East", "0, " + j);
 					}
-					if (field[1][j] == 'o') {
+					if (field[i+1][j] == 'o') {
 						numOfS++;
 						cattle.put("South", "0, " + j);
 					}
-				} else if (i == field.length - 1) {
+				} if (i == field.length - 1) {
 					if (field[i][j - 1] == 'o') {
 						numOfW++;
 						cattle.put("West", i + ", " + j);
@@ -125,8 +124,8 @@ public class TheWrongWayCow {
 						numOfS++;
 						cattle.put("South", i + ", " + j);
 					}
-				} else if (j == 0) {
-					if (field[i - 1][0] == 'o') {
+				} if (j == 0) {
+					if (i > 0 && field[i - 1][0] == 'o') {
 						numOfN++;
 						cattle.put("North", i + ", 0");
 					}
@@ -138,7 +137,7 @@ public class TheWrongWayCow {
 						numOfE++;
 						cattle.put("East", i + ", 0");
 					}
-				} else if (j == field.length - 1) {
+				} if (j == field.length - 1) {
 					if (field[i - 1][j] == 'o') {
 						numOfN++;
 						cattle.put("North", i + ", " + j);
@@ -154,30 +153,61 @@ public class TheWrongWayCow {
 				}
 				// checks the rest
 				else if (field[i][j] == 'c') {
-					if (field[i - 1][j] == 'o') {
+					if (i > 1 && j > 0 && field[i - 1][j] == 'o') {
 						numOfN++;
 						cattle.put("North", i + ", " + j);
 					}
-					if (field[i][j + 1] == 'o') {
+					if (j < field.length && field[i][j + 1] == 'o') {
 						numOfE++;
 						cattle.put("East", i + ", " + j);
 					}
-					if (field[i + 1][j] == 'o') {
+					if (i < field.length && field[i + 1][j] == 'o') {
 						numOfS++;
 						cattle.put("South", i + ", " + j);
 					}
-					if (field[i][j - 1] == 'o') {
+					if (j > 0 && field[i][j - 1] == 'o') {
 						numOfW++;
 						cattle.put("West", i + ", " + j);
 					}
 				}
 			}
 		}
-		if(numOfN == 1) {
-			char cords = cattle.get("North").charAt(0);
-			
-			int xCords = Integer.parseInt(cords);
+		if (numOfN == 1) {
+			char cordsX = cattle.get("North").charAt(0);
+			char cordsY = cattle.get("North").charAt(4);
+			String stringCordsX = cordsX + "";
+			String stringCordsY = cordsY + "";
+			int xCords = Integer.parseInt(stringCordsX);
+			int yCords = Integer.parseInt(stringCordsY);
+			int[] cords = { xCords, yCords };
+			return cords;
+		} else if (numOfE == 1) {
+			char cordsX = cattle.get("East").charAt(0);
+			char cordsY = cattle.get("East").charAt(4);
+			String stringCordsX = cordsX + "";
+			String stringCordsY = cordsY + "";
+			int xCords = Integer.parseInt(stringCordsX);
+			int yCords = Integer.parseInt(stringCordsY);
+			int[] cords = { xCords, yCords };
+			return cords;
+		} else if (numOfS == 1) {
+			char cordsX = cattle.get("South").charAt(0);
+			char cordsY = cattle.get("South").charAt(4);
+			String stringCordsX = cordsX + "";
+			String stringCordsY = cordsY + "";
+			int xCords = Integer.parseInt(stringCordsX);
+			int yCords = Integer.parseInt(stringCordsY);
+			int[] cords = { xCords, yCords };
+			return cords;
+		} else {
+			char cordsX = cattle.get("West").charAt(0);
+			char cordsY = cattle.get("West").charAt(4);
+			String stringCordsX = cordsX + "";
+			String stringCordsY = cordsY + "";
+			int xCords = Integer.parseInt(stringCordsX);
+			int yCords = Integer.parseInt(stringCordsY);
+			int[] cords = { xCords, yCords };
+			return cords;
 		}
-		return null;
 	}
 }
