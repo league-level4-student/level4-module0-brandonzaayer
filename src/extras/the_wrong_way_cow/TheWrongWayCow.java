@@ -103,15 +103,16 @@ public class TheWrongWayCow {
 						numOfW++;
 						cattle.put("West", "0, " + j);
 					}
-					if (j < field.length-1 && field[0][j + 1] == 'o') {
+					if (j < field.length - 1 && field[0][j + 1] == 'o') {
 						numOfE++;
 						cattle.put("East", "0, " + j);
 					}
-					if (field[i+1][j] == 'o') {
+					if (field[i + 1][j] == 'o') {
 						numOfS++;
 						cattle.put("South", "0, " + j);
 					}
-				} if (i == field.length - 1) {
+				}
+				if (i == field.length - 1 && j != 0) {
 					if (field[i][j - 1] == 'o') {
 						numOfW++;
 						cattle.put("West", i + ", " + j);
@@ -124,7 +125,8 @@ public class TheWrongWayCow {
 						numOfS++;
 						cattle.put("South", i + ", " + j);
 					}
-				} if (j == 0) {
+				}
+				if (j == 0 && i != field.length-1) {
 					if (i > 0 && field[i - 1][0] == 'o') {
 						numOfN++;
 						cattle.put("North", i + ", 0");
@@ -137,7 +139,8 @@ public class TheWrongWayCow {
 						numOfE++;
 						cattle.put("East", i + ", 0");
 					}
-				} if (j == field.length - 1) {
+				}
+				if (j == field.length - 1 && i != 0) {
 					if (field[i - 1][j] == 'o') {
 						numOfN++;
 						cattle.put("North", i + ", " + j);
@@ -152,26 +155,31 @@ public class TheWrongWayCow {
 					}
 				}
 				// checks the rest
-				else if (field[i][j] == 'c') {
-					if (i > 1 && j > 0 && field[i - 1][j] == 'o') {
-						numOfN++;
-						cattle.put("North", i + ", " + j);
-					}
-					if (j < field.length && field[i][j + 1] == 'o') {
-						numOfE++;
-						cattle.put("East", i + ", " + j);
-					}
-					if (i < field.length && field[i + 1][j] == 'o') {
-						numOfS++;
-						cattle.put("South", i + ", " + j);
-					}
-					if (j > 0 && field[i][j - 1] == 'o') {
-						numOfW++;
-						cattle.put("West", i + ", " + j);
+				if (numOfN == 1 || numOfE == 1 || numOfS == 1 || numOfW == 1) {
+					break;
+				} else {
+					if ((j != 0 || j != field.length - 1) && (i != 0 || i != field.length - 1)) {
+						if (i > 1 && j > 0 && field[i - 1][j] == 'o') {
+							numOfN++;
+							cattle.put("North", i + ", " + j);
+						}
+						if (j < field.length - 1 && field[i][j + 1] == 'o') {
+							numOfE++;
+							cattle.put("East", i + ", " + j);
+						}
+						if (i < field.length - 1 && field[i + 1][j] == 'o') {
+							numOfS++;
+							cattle.put("South", i + ", " + j);
+						}
+						if (j > 0 && field[i][j - 1] == 'o') {
+							numOfW++;
+							cattle.put("West", i + ", " + j);
+						}
 					}
 				}
 			}
 		}
+
 		if (numOfN == 1) {
 			char cordsX = cattle.get("North").charAt(0);
 			char cordsY = cattle.get("North").charAt(4);
