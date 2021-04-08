@@ -98,61 +98,63 @@ public class TheWrongWayCow {
 		for (int i = 0; i < field.length; i++) {
 			for (int j = 0; j < field[i].length; j++) {
 				// checks edges
-				if (i == 0 && field[i][j] == 'c') {
+				if (i == 0 && field[i][j] != 'c') {
 					if (j > 0 && field[0][j - 1] == 'o') {
 						numOfW++;
-						cattle.put("West", new int[] { 0, j });
+						cattle.put("West", new int[] { j, 0 });
 					}
 					if (j < field.length - 1 && field[0][j + 1] == 'o') {
 						numOfE++;
-						cattle.put("East", new int[] { 0, j });
+						cattle.put("East", new int[] { j, 0 });
 					}
 					if (field[i + 1][j] == 'o') {
 						numOfS++;
-						cattle.put("South", new int[] { 0, j });
+						cattle.put("South", new int[] { j, 0 });
 					}
 				}
+				if(field[i][j] == 'c' &&(i != 0 && j != 0)) {
 				if (i == field.length - 1 && j != 0) {
 					if (field[i][j - 1] == 'o') {
 						numOfW++;
-						cattle.put("West", new int[] { i, j });
+						cattle.put("West", new int[] { j, i });
 					}
 					if (field[i][j + 1] == 'o') {
 						numOfE++;
-						cattle.put("East", new int[] { i, j });
+						cattle.put("East", new int[] { j, i });
 					}
 					if (field[i - 1][j] == 'o') {
 						numOfS++;
-						cattle.put("South", new int[] { i, j });
+						cattle.put("South", new int[] { j, i });
 					}
 				}
 				if (j == 0 && i != field.length - 1) {
 					if (i > 0 && field[i - 1][0] == 'o') {
 						numOfN++;
-						cattle.put("North", new int[] { i, 0 });
+						cattle.put("North", new int[] { 0, i });
 					}
 					if (field[i + 1][0] == 'o') {
 						numOfS++;
-						cattle.put("South", new int[] { i, 0 });
+						cattle.put("South", new int[] { 0, i });
 					}
 					if (field[i][1] == 'o') {
 						numOfE++;
-						cattle.put("East", new int[] { i, 0 });
+						cattle.put("East", new int[] { 0, i });
 					}
 				}
 				if (j == field.length - 1 && i != 0) {
 					if (field[i - 1][j] == 'o') {
 						numOfN++;
-						cattle.put("North", new int[] { i, j });
+						cattle.put("North", new int[] { j, i });
 					}
 					if (field[i + 1][j] == 'o') {
 						numOfS++;
-						cattle.put("South", new int[] { i, j });
+						cattle.put("South", new int[] { j, i });
 					}
 					if (field[i][j - 1] == 'o') {
 						numOfW++;
-						cattle.put("West", new int[] { i, j });
+						cattle.put("West", new int[] { j, i });
 					}
+				}
 				}
 				// checks the rest
 				if (numOfN == 1 || numOfE == 1 || numOfS == 1 || numOfW == 1) {
@@ -190,15 +192,23 @@ public class TheWrongWayCow {
 
 		if (numOfN == 1) {
 			int[] cords = cattle.get("North");
+			System.out.println(cords[0]);
+			System.out.println(cords[1]);
 			return cords;
 		} else if (numOfE == 1) {
 			int[] cords = cattle.get("East");
+			System.out.println(cords[0]);
+			System.out.println(cords[1]);
 			return cords;
 		} else if (numOfS == 1) {
 			int[] cords = cattle.get("South");
+			System.out.println(cords[0]);
+			System.out.println(cords[1]);
 			return cords;
 		} else {
 			int[] cords = cattle.get("West");
+			System.out.println(cords[0]);
+			System.out.println(cords[1]);
 			return cords;
 		}
 	}
