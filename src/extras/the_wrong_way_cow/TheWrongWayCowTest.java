@@ -15,7 +15,7 @@ public class TheWrongWayCowTest {
     return field;
   }
   
- /* @Test
+  @Test
   public void simple() {
     final char[][] field = new char[][] {
       "cowc".toCharArray(),
@@ -36,7 +36,7 @@ public class TheWrongWayCowTest {
       };
     assertArrayEquals(new int[]{6,2}, TheWrongWayCow.findWrongWayCow(show(field)));
   }
-*/
+
   @Test
   public void ex2() {
     final char[][] field = new char[][] {

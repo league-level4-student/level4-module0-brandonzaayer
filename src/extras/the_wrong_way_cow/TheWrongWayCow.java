@@ -157,7 +157,7 @@ public class TheWrongWayCow {
 				}
 				}
 				// checks the rest
-				if (numOfN == 1 || numOfE == 1 || numOfS == 1 || numOfW == 1) {
+				if (numOfN == 1 && numOfE + numOfS + numOfW == 0|| numOfE == 1 && numOfN + numOfS + numOfW == 0|| numOfS == 1 && numOfN + numOfE + numOfW == 0|| numOfW == 1 && numOfN + numOfS + numOfE == 0) {
 					break;
 				} else {
 					if ((j != 0 || j != field.length - 1) && (i != 0 || i != field.length - 1)) {
